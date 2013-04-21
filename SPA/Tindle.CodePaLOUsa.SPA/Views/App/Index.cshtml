@@ -1,0 +1,89 @@
+﻿<div data-role="page" id="index">
+    <div data-role="header" data-position="fixed">
+        <h1>PhoneGap Demo</h1>
+    </div>
+    <div data-role="content">
+        <ul data-role="listview" data-inset="true" style="list-style-type: none;">
+            <li><a href="#theater">Local Theaters</a></li>
+            <li><a href="#movie">Movies</a></li>
+            <li><a href="#camera">Take A Picture</a></li>
+        </ul>
+        <button data-role="button" data-bind="click: sendMessage">Alert</button>
+        <div class="ui-body ui-body-e">
+            <div data-role="collapsible" data-collapsed="true" data-theme="e">
+                <h3>Device Information</h3>
+                <strong>Name:</strong><label data-bind="text: name"></label><br />
+                <strong>Cordova:</strong>
+                <label data-bind="text: cordova"></label>
+                <br />
+                <strong>Platform:</strong>
+                <label data-bind="text: platform"></label>
+                <br />
+                <strong>Uuid:</strong>
+                <label data-bind="text: uuid"></label>
+                <br />
+                <strong>Version:</strong>
+                <label data-bind="text: version"></label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div data-role="page" id="theater">
+    <div data-role="header" data-position="fixed">
+        <a href="#index" data-icon="back">Home</a>
+        <h1>Local Theaters</h1>
+    </div>
+    <div data-role="content">
+        <ul data-bind="foreach: theaters" id="listoftheaters" data-role="listview" data-inset="false">
+            <li>
+                <a>
+                    <h2 data-bind="text: name"></h2>
+                    <p data-bind="text: vicinity">
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="map"></div>
+</div>
+
+<div data-role="page" id="movie">
+    <div data-role="header" data-position="fixed">
+        <a href="#index" data-icon="back">Home</a>
+        <h1>Movies</h1>
+    </div>
+    <div data-role="content">
+        <ul data-bind="foreach: movies" id="listofmovies" data-role="listview" data-inset="false">
+            <li><a>
+                <img data-bind="attr: { src: Poster, alt: Name }" />
+                <h2 data-bind="text: Name"></h2>
+                <p data-bind="attr: { movieid: Id }">
+                    <strong>Rating:&nbsp;<span data-bind="text: Rating"></span></strong>
+                </p>
+                <p data-bind="text: Description">
+                </p>
+            </a></li>
+        </ul>
+    </div>
+</div>
+
+<div data-role="page" data-title="Take A Picture" id="camera">
+    <div data-role="header" data-position="fixed">
+        <a href="#index" data-icon="back">Home</a>
+        <h1>Take A Picture</h1>
+    </div>
+    <div data-role="content">
+        <a data-role="button" data-bind="click: takePicture">Take Picture</a>
+        <img id="putPictureHere" style="height: 200px; width: 200px;" />
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/app/app.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+}
