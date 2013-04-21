@@ -1,7 +1,7 @@
 codepalousa-phonegap
 ====================
 
-Contained with this repo are the following:
+This repository was used in the making of the Cross-Platform: HTML 5 and PhoneGap presentation given by Justin Tindle during CodePaLOUsa 2013.
 
 iOSDemo - A sample iOS app that shows off a basic PhoneGap container app with a SPA web application.
 
