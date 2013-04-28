@@ -1,0 +1,17 @@
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\Bin\Debug\ApplicationIcon.png
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\Bin\Debug\Background.png
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\Bin\Debug\HTML5App.dll
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\Bin\Debug\HTML5App.pdb
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\Bin\Debug\en-US\HTML5App.resources.dll
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\Bin\Debug\AppManifest.xaml
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\Bin\Debug\Properties\WMAppManifest.xml
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\Bin\Debug\CordovaAppProj_Debug_AnyCPU.xap
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\Bin\Debug\WPCordovaClassLib.dll
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\obj\Debug\HTML5App.csprojResolveAssemblyReference.cache
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\obj\Debug\App.g.cs
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\obj\Debug\MainPage.g.cs
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\obj\Debug\HTML5App.g.en-US.resources
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\obj\Debug\en-US\HTML5App.resources.dll
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\obj\Debug\HTML5App.dll
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\obj\Debug\HTML5App.pdb
+C:\Users\Justin\Documents\GitHub\codepalousa-phonegap\SPA\HTML5App\obj\Debug\XapCacheFile.xml

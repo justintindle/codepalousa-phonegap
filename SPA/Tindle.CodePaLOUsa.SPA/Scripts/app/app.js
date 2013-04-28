@@ -1,8 +1,5 @@
 ﻿var app = {
     homeViewModel: null,
-    takeAPictureViewModel: null,
-    moviesViewModel: null,
-    localTheatersViewModel: null,
     // Application Constructor
     initialize: function () {
         this.bindEvents();
@@ -13,21 +10,21 @@
     // `load`, `deviceready`, `offline`, and `online`.
     bindEvents: function () {
         document.addEventListener('DOMContentLoaded', this.onDeviceReady, false);
+
+        $('#theater').on("pageshow", function () {
+            app.showTheaters();
+        });
     },
     onDeviceReady: function () {
         app.homeViewModel = new HomeViewModel(window.device);
-        app.takeAPictureViewModel = new TakeAPictureViewModel;
-        app.moviesViewModel = new MoviesViewModel();
-        app.localTheatersViewModel = new LocalTheatersViewModel();
 
         ko.applyBindings(app.homeViewModel, $("#index")[0]);
-        ko.applyBindings(app.takeAPictureViewModel, $("#camera")[0]);
-
-        app.showTheaters();
-        ko.applyBindings(app.localTheatersViewModel, $('#theater')[0]);
+        ko.applyBindings(TakeAPictureViewModel, $("#camera")[0]);
+        ko.applyBindings(SettingsViewModel, $("#theaterSettings")[0]);
+        ko.applyBindings(LocalTheatersViewModel, $('#theater')[0]);
 
         app.showMovies();
-        ko.applyBindings(app.moviesViewModel, $('#movie')[0]);
+        ko.applyBindings(MoviesViewModel, $('#movie')[0]);
     },
     showMovies: function() {
         $.ajax({
@@ -46,36 +43,61 @@
                     });
                 });
 
-                app.moviesViewModel.movies(movieModels);
-                
+                MoviesViewModel.movies(movieModels);
             }
         });
     },
     showTheaters: function() {
         navigator.geolocation.getCurrentPosition(mapService.onSuccess, mapService.onError, {
             maximumAge: Infinity,
-            // Timeout is necessary
+            // higher timeout is necessary
             timeout: 50000,
-            // Needs to be set to true to work on android
+            // Needs to be set to true to work on older android devices
             enableHighAccuracy: true
         });
     }
 };
 
 var HomeViewModel = function (device) {
-    var self = this;
-    self.name = ko.observable(device.name);
-    self.cordova = ko.observable(device.cordova);
-    self.platform = ko.observable(device.platform);
-    self.uuid = ko.observable(device.uuid);
-    self.version = ko.observable(device.version);
-    self.sendMessage = function () {
+    this.name = ko.observable(device.name);
+    this.cordova = ko.observable(device.cordova);
+    this.platform = ko.observable(device.platform);
+    this.uuid = ko.observable(device.uuid);
+    this.version = ko.observable(device.version);
+    this.sendMessage = function () {
         navigator.notification.alert("I'm bacon.", self.AlertDismissed, "Bacon", "Crispy");
     };
 };
 
-var LocalTheatersViewModel = function (theaters) {
-    this.theaters = ko.observableArray(theaters);
+var TakeAPictureViewModel = {
+    takePicture: function () {
+        navigator.camera.getPicture(function (imageUrl) {
+            $("#putPictureHere").attr("src", imageUrl);
+        }, function (error) {
+            alert("Error: " + error.code + " - " + error.message);
+        }, { destinationType: navigator.camera.DestinationType.FILE_URI });
+    }
+};
+
+var LocalTheatersViewModel = {
+    theaters: ko.observableArray([])
+};
+
+var MoviesViewModel = {
+    movies: ko.observableArray([])
+};
+
+var SettingsViewModel = {
+    radius: 
+        [
+            { text: "5 Miles", meters: "8045" },
+            { text: "10 Miles", meters: "16090" },
+            { text: "15 Miles", meters: "24135" },
+            { text: "20 Miles", meters: "32180" },
+            { text: "25 Miles", meters: "40225" },
+            { text: "30 Miles", meters: "48270" }
+        ],
+    chosenRadius: ko.observable()
 };
 
 var mapService = {
@@ -89,11 +111,11 @@ var mapService = {
         mapService.initialize(-33.8665433, 151.1956316);
     },
     initialize: function(lat, lng) {
-        var map;
-        var service;
-        var location = new google.maps.LatLng(lat, lng);
+        var map,
+            service,
+            location = new google.maps.LatLng(lat, lng);
 
-        map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map($('#map')[0], {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             center: location,
             zoom: 15
@@ -101,31 +123,16 @@ var mapService = {
 
         var request = {
             location: location,
-            radius: '35000',
+            radius: SettingsViewModel.chosenRadius().meters,
             types: ['movie_theater']
         };
 
         service = new google.maps.places.PlacesService(map);
         service.search(request, function(results, status) {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
-                app.localTheatersViewModel.theaters(results);
+                LocalTheatersViewModel.theaters(results);
+                $('#listoftheaters').listview('refresh');
             }
         });
     }
-};
-
-var MoviesViewModel = function(movies) {
-    var self = this;
-    
-    self.movies = ko.observableArray(movies);
-};
-
-var TakeAPictureViewModel = function() {
-    this.takePicture = function () {
-        navigator.camera.getPicture(function (imageUrl) {
-            $("#putPictureHere").attr("src", imageUrl);
-        }, function (error) {
-            alert("Error: " + error.code + " - " + error.message);
-        }, { destinationType: navigator.camera.DestinationType.FILE_URI });
-    };
 };
